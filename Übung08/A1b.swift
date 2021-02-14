@@ -1,11 +1,14 @@
-var fac = 6
-var res = 1
 
-for i in 1...fac{
-  res = res * i
+func faculty(_ Zahl: Int) -> Int {
+	var res = 1
+
+	for i in 1...Zahl{
+  	res = res * i
+	}
+	return res
 }
 
-print(res)
+print(faculty(10))
 
 //kleines 1 * 1
 for i in stride(from: 1, to: 11, by: 1) {
@@ -14,6 +17,18 @@ for i in stride(from: 1, to: 11, by: 1) {
   }
 }
 
+enum OrtExistiertNichtException: Error {
+	case yeet
+}
+
+func neuerOrt(_ Ort: String) throws -> String {
+	if treasureQuest[Ort] == nil {
+		throw OrtExistiertNichtException.yeet
+	} else
+	{
+	return treasureQuest[Ort]!
+	}
+}
 let treasureQuest =
 [
   "Alte Eiche": "Bärenhöhle",
@@ -28,16 +43,18 @@ var schatzGefunden = false
 var aktuellerOrt = "Start"
 while schatzGefunden == false {
   do {
-    try
-  print("Laufe von \(aktuellerOrt) zu \(treasureQuest[aktuellerOrt]!)")
-  aktuellerOrt = treasureQuest[aktuellerOrt]!
+	let aktuellerOrtNeu = try neuerOrt(aktuellerOrt)
+	print("Laufe von \(aktuellerOrt) zu \(aktuellerOrtNeu)")
+  aktuellerOrt = aktuellerOrtNeu
+	}
+	catch {
+		print("so wies aussieht existiert der Ort nicht")
+		schatzGefunden = true
+	}
   if aktuellerOrt == "Schatz" {
     schatzGefunden = true
-    } catch
-     {
-      print("Ort existiert nicht")
-    }
-  }
+    } 
+  
 }
 
 //do catch funktioniert nicht :c
